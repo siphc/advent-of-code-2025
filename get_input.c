@@ -17,7 +17,7 @@ size_t write_callback(void *contents, size_t size, size_t nmemb, void *userp) {
 */
 int main(int argc, char **argv) {
 	if (argc != 3) {
-		fprintf(stderr, "Usage: ./input <day> <session_cookie>\n");
+		fprintf(stderr, "Usage: %s <day> <session_cookie>\n", argv[0]);
 		return 1;
 	}
 

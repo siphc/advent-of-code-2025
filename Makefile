@@ -2,7 +2,7 @@
 CC = gcc
 LDLIBS = -lcurl
 
-input: input.o
+get_input: get_input.o
 
 clean:
-	rm *.o input
+	rm -v *.o get_input
