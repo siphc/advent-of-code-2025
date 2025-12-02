@@ -12,7 +12,7 @@ int main() {
 	int res_2 = 0;
 
 	for (int i=0; i<matrix_rows(m); i++) {
-		char *rotation = matrix_get(m, i, 0);
+		const char *rotation = matrix_get(m, i, 0);
 		int clicks = atoi(rotation+1);
 
 		if (rotation[0] == 'L') {
@@ -31,6 +31,8 @@ int main() {
 
 	printf("Part 1: %d\n", res_1);
 	printf("Part 2: %d\n", res_2);
+
+	matrix_free(m);
 
 	return 0;
 }
