@@ -5,12 +5,12 @@
 
 #include "parse_input.h"
 
-static int count_tokens(const char *line) {
+static int count_tokens(const char *line, char delimiter) {
     int count = 0;
     int in_token = 0;
 
     for (; *line; line++) {
-        if (isspace((unsigned char)*line)) {
+        if (*line == delimiter) {
             in_token = 0;
         }
         else if (!in_token) {
@@ -21,7 +21,7 @@ static int count_tokens(const char *line) {
     return count;
 }
 
-static int get_dimensions(FILE *f, int *rows, int *cols) {
+static int get_dimensions(FILE *f, int *rows, int *cols, char delimiter) {
     char *line = NULL;
     size_t cap = 0;
 
@@ -36,7 +36,7 @@ static int get_dimensions(FILE *f, int *rows, int *cols) {
         allocated size of *line.
     */
     while (getline(&line, &cap, f) != -1) {
-        int tokens = count_tokens(line);
+        int tokens = count_tokens(line, delimiter);
         if (tokens == 0) continue;
 
         if (tokens > *cols) *cols = tokens;
@@ -51,7 +51,7 @@ static int get_dimensions(FILE *f, int *rows, int *cols) {
     return 0;
 }
 
-static char **parse_row(const char *line, int cols) {
+static char **parse_row(const char *line, int cols, char delimiter) {
     char **values = malloc(cols * sizeof(char *));
     if (!values) return NULL;
 
@@ -59,12 +59,11 @@ static char **parse_row(const char *line, int cols) {
     const char *p = line;
 
     while (*p && col < cols) {
-        while (*p && isspace((unsigned char)*p)) p++;
+        while (*p && *p == delimiter) p++;
         if (!*p) break;
 
         const char *start = p;
-        while (*p && !isspace((unsigned char)*p)) p++;
-
+        while (*p && *p != delimiter) p++;
         size_t len = p - start;
         values[col] = malloc(len + 1);
         if (!values[col]) goto fail;
@@ -90,13 +89,13 @@ fail:
     return NULL;
 }
 
-static int read_data(FILE *f, Matrix *m) {
+static int read_data(FILE *f, Matrix *m, char delimiter) {
     char *line = NULL;
     size_t cap = 0;
     int row = 0;
 
     while (getline(&line, &cap, f) != -1) {
-        m->values[row] = parse_row(line, m->cols);
+        m->values[row] = parse_row(line, m->cols, delimiter);
         if (!m->values[row]) { // we must have failed an allocation...
             free(line);
             return 1;
@@ -129,7 +128,7 @@ void matrix_free(Matrix *m) {
     free(m);
 }
 
-Matrix *matrix_parse(const char *filename) {
+Matrix *matrix_parse(const char *filename, char delimiter) {
     FILE *f = fopen(filename, "r");
     if (!f) {
         perror(filename);
@@ -137,7 +136,7 @@ Matrix *matrix_parse(const char *filename) {
     }
 
     int rows, cols;
-    if (get_dimensions(f, &rows, &cols) != 0 || rows == 0) {
+    if (get_dimensions(f, &rows, &cols, delimiter) != 0 || rows == 0) {
         fclose(f);
         return NULL;
     }
@@ -159,7 +158,7 @@ Matrix *matrix_parse(const char *filename) {
 
     rewind(f);
 
-    if (read_data(f, m)) {
+    if (read_data(f, m, delimiter) != 0) {
         matrix_free(m);
         fclose(f);
         return NULL;

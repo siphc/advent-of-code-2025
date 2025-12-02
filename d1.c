@@ -5,7 +5,7 @@
 #include "parse_input.h"
 
 int main() {
-	Matrix *m = matrix_parse("1.input");
+	Matrix *m = matrix_parse("1.input", ' ');
 
 	int curr = 50;
 	int res_1 = 0;

@@ -7,7 +7,7 @@ typedef struct {
     int cols;
 } Matrix;
 
-Matrix *matrix_parse(const char *filename);
+Matrix *matrix_parse(const char *filename, char delimiter);
 int matrix_rows(const Matrix *m);
 int matrix_cols(const Matrix *m);
 const char *matrix_get(const Matrix *m, int row, int col);
