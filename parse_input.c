@@ -95,6 +95,10 @@ static int read_data(FILE *f, Matrix *m, char delimiter) {
     int row = 0;
 
     while (getline(&line, &cap, f) != -1) {
+        // removes trailing LF character.
+        // getline() is POSIX anyway, so this code is valid.
+        if (line[strlen(line) - 1] == '\n')
+            line[strlen(line) - 1] = '\0';
         m->values[row] = parse_row(line, m->cols, delimiter);
         if (!m->values[row]) { // we must have failed an allocation...
             free(line);
