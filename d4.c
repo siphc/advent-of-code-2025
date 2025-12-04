@@ -44,10 +44,16 @@ int main() {
 			0.090s by unrolling *curr;
 			0.084s by swapping the condition (i==row && j==col) first;
 			0.037s by passing in `width` (!);
-			0.015s by using -O3.
-		That's a 7.3X speedup!
+			0.033s by removing sanitizers;
+			0.022s by using -O3;
+			0.015s by using -march=native -funroll-loops
+							-fprefetch-loop-arrays -flto;
+			0.013s by using profile-guided optimization (-fprofile);
+			0.006s by doing the same thing, but with Clang.
+		That's a 18.3X speedup!
 
 		If you're reading this, please tell me where I can optimize further.
+		
 		If I'm bored, I will make some kind of queue system to dynamically
 		update after removing a roll... But it is 3am.
 	*/
