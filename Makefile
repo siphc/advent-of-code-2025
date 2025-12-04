@@ -12,5 +12,7 @@ d2: d2.o parse_input.o
 
 d3: d3.o parse_input.o
 
+d4: d4.o parse_input.o
+
 clean:
 	rm -v *.o get_input d?
