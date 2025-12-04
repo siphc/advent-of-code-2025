@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <omp.h>
 
 #include "parse_input.h"
 
@@ -21,6 +22,12 @@ int main() {
 			}
 		}
 
+		/* This code is horrible!
+			Average >6s on my standard setup (GCC 14, asan, ubsan).
+			With OpenMP, it's now 1.6s :)
+		*/
+		#define NUM_THREADS 16
+		#pragma omp parallel for reduction (+:res_1,res_2)
 		for (unsigned long long j=atoll(curr); j<=atoll(curr+dash+1); j++) {
 			char buffer[21]; // long enough for all llu values
 			sprintf(buffer, "%llu", j); // therefore, this is safe!
