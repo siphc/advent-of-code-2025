@@ -20,5 +20,9 @@ d4: d4.o parse_input.o
 
 d5: d5.o parse_input.o
 
+d6: d6.o parse_input.o
+
+d7: d7.o parse_input.o
+
 clean:
 	rm -v *.o get_input d?
