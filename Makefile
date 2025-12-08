@@ -1,5 +1,6 @@
 .PHONY = clean
 CC = gcc
+CXX = g++
 CFLAGS = -Wall -Werror -fsanitize=address -fsanitize=undefined
 LDFLAGS = -fsanitize=address -fsanitize=undefined
 
@@ -23,6 +24,9 @@ d5: d5.o parse_input.o
 d6: d6.o parse_input.o
 
 d7: d7.o parse_input.o
+
+d8: d8.o parse_input.o dsu.o
+	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 clean:
 	rm -v *.o get_input d?
