@@ -4,7 +4,7 @@
 
 #include "parse_input.h"
 
-inline void swap_chars(char *l, char *r) {
+static inline void swap_chars(char *l, char *r) {
 	char temp = *l;
 	*l = *r;
 	*r = temp;

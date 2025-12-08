@@ -61,11 +61,11 @@ int main() {
 	do {
 		old_res_2 = res_2;
 		for (int i=0; i<height; i++) {
-			char *curr = matrix_get(m, i, 0);
+			const char *curr = matrix_get(m, i, 0);
 			for (int j=0; j<width; j++) {
 				if (curr[j] == '@' && can_access_paper(m, i, j, width)) {
 					res_2++;
-					curr[j] = '.';
+					((char *)curr)[j] = '.';
 				}
 			}
 		}

@@ -1,6 +1,6 @@
 .PHONY = clean
 CC = gcc
-CFLAGS = -fsanitize=address -fsanitize=undefined
+CFLAGS = -Wall -Werror -fsanitize=address -fsanitize=undefined
 LDFLAGS = -fsanitize=address -fsanitize=undefined
 
 get_input: get_input.o
