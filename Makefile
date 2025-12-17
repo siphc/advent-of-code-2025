@@ -25,8 +25,11 @@ d6: d6.o parse_input.o
 
 d7: d7.o parse_input.o
 
-d8: d8.o parse_input.o dsu.o
-	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
+# d8: d8.o parse_input.o dsu.o
+# 	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
+
+d8: d8.o parse_input.o priority_queue.o dsu.o
+	$(CC) $(LDFLAGS) $^ -lm -o $@
 
 clean:
 	rm -v *.o get_input d?

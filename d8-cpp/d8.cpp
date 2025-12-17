@@ -19,7 +19,7 @@ struct Coordinate {
 };
 
 double get_dist(const Coordinate& lhs, const Coordinate& rhs) {
-	return std::sqrt(
+	return std::sqrt( \
 		std::pow(lhs.m_x-rhs.m_x, 2) + \
 		std::pow(lhs.m_y-rhs.m_y, 2) + \
 		std::pow(lhs.m_z-rhs.m_z, 2)
@@ -48,7 +48,7 @@ int main() {
 
 	std::vector<Coordinate> coords;
 	for (int i=0; i<matrix_rows(m); i++) {
-		coords.emplace_back(
+		coords.emplace_back( \
 			static_cast<int>(strtol(matrix_get(m, i, 0), NULL, 10)), \
 			static_cast<int>(strtol(matrix_get(m, i, 1), NULL, 10)), \
 			static_cast<int>(strtol(matrix_get(m, i, 2), NULL, 10)) \
