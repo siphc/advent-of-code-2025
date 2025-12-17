@@ -43,6 +43,14 @@ int heap_pop(void *ptr, size_t count, size_t size, \
 		
 		void *curr = ptr + idx * size;
 		void *left = ptr + (2 * idx + 1) * size;
+		if (2 * idx + 2 >= count) {
+			if (!comp(curr, left)) {
+				memswap(curr, left, size);
+				idx = 2 * idx + 1;
+			}
+			break;
+		}
+
 		void *right = ptr + (2 * idx + 2) * size;
 		if (comp(curr, left) && comp(curr, right))
 			break;
@@ -75,8 +83,10 @@ int heap_add(void *ptr, size_t count, size_t size, void *toadd, \
 		
 		void *curr = ptr + idx * size;
 		void *parent = ptr + (idx-1)/2 * size;
-		if (comp(curr, parent))
+		if (comp(curr, parent)) {
+			idx = (idx - 1) / 2;
 			memswap(curr, parent, size);
+		}
 		else
 			break;
 	}
