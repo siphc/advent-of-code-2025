@@ -1,4 +1,6 @@
 *.o
-*.input
-input
+get_input
+
+inputs/
 .vscode/
+build/

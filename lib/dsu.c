@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "dsu.h"
+#include "../include/dsu.h"
 
 int capacity;
 int *parent;

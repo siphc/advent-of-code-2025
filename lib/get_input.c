@@ -13,7 +13,7 @@ size_t write_callback(void *contents, size_t size, size_t nmemb, void *userp) {
 
 /* Usage
 	./input <day> <session_cookie>
-	The resultant input file will be stored on ./<day>.input, e.g. 1.input.
+	The resultant input file will be stored on ./inputs/<day>.input.
 */
 int main(int argc, char **argv) {
 	if (argc != 3) {
@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 		as well as *BSD. If you use MSVC, write your own input parser.
 	*/
 	char *o_filename;
-	if (0 > asprintf(&o_filename, "%s.input", argv[1])) {
+	if (0 > asprintf(&o_filename, "inputs/%s.input", argv[1])) {
 		fprintf(stderr, "asprintf(): (most likely) allocation error)\n");
 		return 1;
 	}

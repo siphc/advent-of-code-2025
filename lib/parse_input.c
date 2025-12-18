@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "parse_input.h"
+#include "../include/parse_input.h"
 
 static int count_tokens(const char *line, char delimiter) {
     int count = 0;

@@ -1,35 +1,48 @@
-.PHONY = clean
-CC = gcc
-CXX = g++
-CFLAGS = -Wall -Werror -fsanitize=address -fsanitize=undefined
-LDFLAGS = -fsanitize=address -fsanitize=undefined
+.PHONY = clean all
 
-get_input: get_input.o
-	$(CC) $(LDFLAGS) $^ -lcurl -o $@
+CC := gcc
+CXX := g++
+CFLAGS := -Wall -Werror -fsanitize=address -fsanitize=undefined
+LDFLAGS := -fsanitize=address -fsanitize=undefined
 
-d1: d1.o parse_input.o
+BUILD = build
+REGULARS := d1 d3 d4 d5 d6 d7
 
-d2: d2.o parse_input.o
+all: $(REGULARS) d2 d8
+
+# Special rule for get_input due to libcurl
+get_input: $(BUILD)/get_input.o
+	nix-shell --run '$(CC) $(LDFLAGS) $^ -lcurl -o $@'
+
+$(BUILD)/get_input.o: lib/get_input.c
+	nix-shell --run '$(CC) -c $(CPPFLAGS) $(CFLAGS) $^ -o $@'
+
+# Regular binaries.
+$(REGULARS): %: $(BUILD)/%.o $(BUILD)/parse_input.o
+	$(CC) $(LDFLAGS) $^ -o $@
+
+$(BUILD)/%.o: src/%.c | $(BUILD)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $^ -o $@
+
+# Binaries with special dynamically linked libraries and/or compiler flags
+d2: $(BUILD)/d2.o $(BUILD)/parse_input.o
 	$(CC) -fopenmp $(LDFLAGS) $^ $(LDLIBS) -o $@
 
-d2.o: d2.c
+$(BUILD)/d2.o: src/d2.c | $(BUILD)
 	$(CC) -c $(CPPFLAGS) -fopenmp $(CFLAGS) $^ -o $@
 
-d3: d3.o parse_input.o
-
-d4: d4.o parse_input.o
-
-d5: d5.o parse_input.o
-
-d6: d6.o parse_input.o
-
-d7: d7.o parse_input.o
-
-# d8: d8.o parse_input.o dsu.o
-# 	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
-
-d8: d8.o parse_input.o priority_queue.o dsu.o
+d8: $(BUILD)/d8.o $(BUILD)/parse_input.o $(BUILD)/priority_queue.o $(BUILD)/dsu.o
 	$(CC) $(LDFLAGS) $^ -lm -o $@
 
+# Utility libraries
+LIBS := dsu parse_input priority_queue
+LIB_OBJS := $(patsubst %,$(BUILD)/%.o,$(LIBS))
+
+$(LIB_OBJS): $(BUILD)/%.o: lib/%.c | $(BUILD)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $^ -o $@
+
+$(BUILD):
+	mkdir -p $@
+
 clean:
-	rm -v *.o get_input d?
+	rm -v get_input build/* d?

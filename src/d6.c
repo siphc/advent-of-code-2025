@@ -4,10 +4,10 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-#include "parse_input.h"
+#include "../include/parse_input.h"
 
 int main() {
-	Matrix *m = matrix_parse("6.input", ' ');
+	Matrix *m = matrix_parse("inputs/6.input", ' ');
 	// Quirk in the parser means last column should be ignored
 	int cols = matrix_cols(m) - 1;
 
@@ -42,7 +42,7 @@ int main() {
 	printf("Part 1: %llu\n", res_1);
 
 	matrix_free(m);
-	m = matrix_parse("6.input", ',');
+	m = matrix_parse("inputs/6.input", ',');
 
 	unsigned long long res_2 = 0;
 	unsigned long long curr = binops[idx] == '+' ? 0 : 1;

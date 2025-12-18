@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "priority_queue.h"
+#include "../include/priority_queue.h"
 
 /* Helper Functions */
 int memswap(void *lhs, void *rhs, size_t size) {

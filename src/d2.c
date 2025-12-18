@@ -3,10 +3,10 @@
 #include <string.h>
 #include <omp.h>
 
-#include "parse_input.h"
+#include "../include/parse_input.h"
 
 int main() {
-	Matrix *m = matrix_parse("2.input", ',');
+	Matrix *m = matrix_parse("inputs/2.input", ',');
 
 	unsigned long long res_1 = 0;
 	unsigned long long res_2 = 0;

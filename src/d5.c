@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "parse_input.h"
+#include "../include/parse_input.h"
 
 typedef struct {
 	unsigned long long begin;
@@ -10,7 +10,7 @@ typedef struct {
 } Range;
 
 int main() {
-	Matrix *m = matrix_parse("5.input", ' ');
+	Matrix *m = matrix_parse("inputs/5.input", ' ');
 
 	int i = 0;
 	while (strstr(matrix_get(m, i, 0), "-"))

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 extern "C" {
-#include "parse_input.h"
+#include "../include/parse_input.h""
 }
 
 #include "dsu.hpp"
@@ -42,7 +42,7 @@ struct Pair {
 int main() {
 	// Not gonna lie I'm not writing another parser.
 	// We mix together C/C++ in this house.
-	Matrix *m = matrix_parse("8.input", ',');
+	Matrix *m = matrix_parse("inputs/8.input", ',');
 
 	const int MAX_NUM_CONNECTIONS = 1000;
 

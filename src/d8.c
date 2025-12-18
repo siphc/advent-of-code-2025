@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "parse_input.h"
-#include "priority_queue.h"
-#include "dsu.h"
+#include "../include/parse_input.h"
+#include "../include/priority_queue.h"
+#include "../include/dsu.h"
 
 typedef struct {
 	double m_dist;
@@ -40,7 +40,7 @@ double getdist(const Matrix *m, size_t first, size_t second) {
 }
 
 int main() {
-	Matrix *m = matrix_parse("8.input", ',');
+	Matrix *m = matrix_parse("inputs/8.input", ',');
 
 	const int MAX_NUM_CONNECTIONS = 1000;
 	Pair * const max_heap = (Pair * const)malloc( \

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "parse_input.h"
+#include "../include/parse_input.h"
 
 static inline void swap_chars(char *l, char *r) {
 	char temp = *l;
@@ -11,7 +11,7 @@ static inline void swap_chars(char *l, char *r) {
 }
 
 int main() {
-	Matrix *m = matrix_parse("3.input", ' ');
+	Matrix *m = matrix_parse("inputs/3.input", ' ');
 
 	int res_1 = 0;
 	unsigned long long res_2 = 0;

@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "parse_input.h"
+#include "../include/parse_input.h"
 
 int main() {
-	Matrix *m = matrix_parse("x.input", ' ');
+	Matrix *m = matrix_parse("inputs/x.input", ' ');
 
 	int res_1 = 0;
 	int res_2 = 0;

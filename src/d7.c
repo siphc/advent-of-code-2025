@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "parse_input.h"
+#include "../include/parse_input.h"
 
 #define ull unsigned long long
 
 int main() {
-	Matrix *m = matrix_parse("7.input", ' ');
+	Matrix *m = matrix_parse("inputs/7.input", ' ');
 	const int COLS = strlen(matrix_get(m, 0, 0));
 
 	// The problem spec does not mention the possibly of two splitters being

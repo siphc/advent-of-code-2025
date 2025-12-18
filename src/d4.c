@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "parse_input.h"
+#include "../include/parse_input.h"
 
 int can_access_paper(Matrix *m, int row, int col, int width) {
 	int cnt = 0;
@@ -21,7 +21,7 @@ int can_access_paper(Matrix *m, int row, int col, int width) {
 }
 
 int main() {
-	Matrix *m = matrix_parse("4.input", ' ');
+	Matrix *m = matrix_parse("inputs/4.input", ' ');
 
 	int res_1 = 0;
 	int res_2 = 0;
